@@ -1,17 +1,18 @@
-package com.ahdark.code.dto
+package com.ahdark.code.entities
 
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class BaseResponse<T>(
-    val code: Int = 0,
+    val code: StatusCode = StatusCode.SUCCESS,
     val msg: String = "success",
     val data: T? = null
 ) {
     companion object {
         fun <T> success(data: T? = null) = BaseResponse(data = data)
         fun success() = BaseResponse<Unit>()
-        fun error(code: Int = -1, msg: String = "error") = BaseResponse<Unit>(code = code, msg = msg)
+        fun error(code: StatusCode = StatusCode.ERROR, msg: String = "error") =
+            BaseResponse<Unit>(code = code, msg = msg)
     }
 }
 
