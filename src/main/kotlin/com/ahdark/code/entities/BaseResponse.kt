@@ -11,7 +11,7 @@ data class BaseResponse<T>(
     companion object {
         fun <T> success(data: T? = null) = BaseResponse(data = data)
         fun success() = BaseResponse<Unit>()
-        fun error(code: StatusCode = StatusCode.ERROR, msg: String = "error") =
+        fun error(code: StatusCode = StatusCode.UNKNOWN, msg: String = "error") =
             BaseResponse<Unit>(code = code, msg = msg)
     }
 }

@@ -4,13 +4,12 @@ import com.ahdark.code.entities.github.webhook.events.PingEvent
 import com.ahdark.code.entities.github.webhook.events.PushEvent
 import com.ahdark.code.services.EventHandleService
 
-
 class EventHandleServiceImpl : EventHandleService {
     override fun handlePingEvent(event: PingEvent) {
-        TODO()
+        println("PingEvent: $event")
     }
 
     override fun handlePushEvent(event: PushEvent) {
-        TODO()
+        println("PushEvent: $event")
     }
 }
