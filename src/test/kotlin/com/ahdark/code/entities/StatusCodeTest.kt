@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class StatusCodeTest {
     @Test
-    fun testToCode() {
+    fun toCode() {
         assertEquals(200, StatusCode.SUCCESS.toCode())
         assertEquals(400, StatusCode.BAD_REQUEST.toCode())
         assertEquals(401, StatusCode.UNAUTHORIZED.toCode())
@@ -17,7 +17,7 @@ class StatusCodeTest {
     }
 
     @Test
-    fun testFromCode() {
+    fun fromCode() {
         assertEquals(StatusCode.SUCCESS, StatusCode.fromCode(200))
         assertEquals(StatusCode.BAD_REQUEST, StatusCode.fromCode(400))
         assertEquals(StatusCode.UNAUTHORIZED, StatusCode.fromCode(401))
