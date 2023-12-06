@@ -4,12 +4,13 @@ import com.ahdark.code.controllers.GitHubWebhookController
 import com.ahdark.code.controllers.HealthController
 import com.ahdark.code.entities.BaseResponse
 import com.ahdark.code.entities.StatusCode
-import com.ahdark.code.entities.github.webhook.events.PingEvent
-import com.ahdark.code.entities.github.webhook.events.PushEvent
-import com.ahdark.code.services.EventHandleService
+import com.ahdark.code.entities.github.webhook.EventType
+import com.ahdark.code.services.EventHandleServiceFactory
 import com.ahdark.code.services.SignatureService
-import com.ahdark.code.services.impl.EventHandleServiceImpl
+import com.ahdark.code.services.impl.EventHandleServiceFactoryImpl
 import com.ahdark.code.services.impl.SignatureServiceImpl
+import com.ahdark.code.utils.ConfigUtils
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.autohead.*
 import io.ktor.server.request.*
@@ -17,20 +18,14 @@ import io.ktor.server.resources.*
 import io.ktor.server.resources.post
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import java.util.*
 
 fun Application.configureRouting() {
     install(Resources)
     install(AutoHeadResponse)
 
-    val props = Properties()
-    environment.classLoader.getResourceAsStream("config.properties")?.use {
-        props.load(it)
-    }
-
-    val eventHandleService: EventHandleService = EventHandleServiceImpl()
-    val signatureService: SignatureService =
-        SignatureServiceImpl(props.getProperty("github.webhook.secret"))
+    val configUtils = ConfigUtils()
+    val signatureService: SignatureService = SignatureServiceImpl(configUtils.getProperty("github.webhook.secret"))
+    val eventHandleServiceFactory: EventHandleServiceFactory = EventHandleServiceFactoryImpl()
 
     routing {
         get<HealthController> {
@@ -38,11 +33,12 @@ fun Application.configureRouting() {
         }
 
         post<GitHubWebhookController> {
-            val event = call.request.header("X-GitHub-Event")
+            val event = call.request.header("X-GitHub-Event")?.let { EventType.fromString(it) }
             val signature = call.request.header("X-Hub-Signature-256")
 
             if (event == null || signature == null) {
                 call.respond(
+                    HttpStatusCode.BadRequest,
                     BaseResponse.error(
                         code = StatusCode.BAD_REQUEST,
                         msg = "Missing required headers"
@@ -51,10 +47,11 @@ fun Application.configureRouting() {
                 return@post
             }
 
-            if ("" != props.getProperty("github.webhook.secret")
+            if ("" != configUtils.getProperty("github.webhook.secret")
                 && !signatureService.verifySignature(signature, call.receiveText().toByteArray())
             ) {
                 call.respond(
+                    HttpStatusCode.Forbidden,
                     BaseResponse.error(
                         code = StatusCode.FORBIDDEN,
                         msg = "Signature verification failed"
@@ -63,41 +60,30 @@ fun Application.configureRouting() {
                 return@post
             }
 
-            when (event) {
-                "ping" -> {
-                    try {
-                        val eventData = call.receive<PingEvent>()
-                        eventHandleService.handlePingEvent(eventData)
-                    } catch (e: Exception) {
-                        call.respond(
-                            BaseResponse.error(
-                                code = StatusCode.INTERNAL_SERVER_ERROR,
-                                msg = e.message ?: "Unknown error"
-                            )
-                        )
-                        return@post
-                    }
+            try {
+                eventHandleServiceFactory.createService(event).also {
+                    it.handleEvent(call.receiveText().toByteArray())
                 }
+            } catch (e: IllegalArgumentException) {
+                call.respond(
+                    HttpStatusCode.BadRequest,
+                    BaseResponse.error(
+                        code = StatusCode.BAD_REQUEST,
+                        msg = e.message ?: "Unknown error"
+                    )
+                )
 
-                "push" -> {
-                    try {
-                        val eventData = call.receive<PushEvent>()
-                        eventHandleService.handlePushEvent(eventData)
-                    } catch (e: Exception) {
-                        call.respond(
-                            BaseResponse.error(
-                                code = StatusCode.INTERNAL_SERVER_ERROR,
-                                msg = e.message ?: "Unknown error"
-                            )
-                        )
-                        return@post
-                    }
-                }
+                return@post
+            } catch (e: Exception) {
+                call.respond(
+                    HttpStatusCode.InternalServerError,
+                    BaseResponse.error(
+                        code = StatusCode.INTERNAL_SERVER_ERROR,
+                        msg = e.message ?: "Unknown error"
+                    )
+                )
 
-                else -> {
-                    call.respond(BaseResponse.error(msg = "Unsupported event"))
-                    return@post
-                }
+                return@post
             }
 
             call.respond(BaseResponse.success())
