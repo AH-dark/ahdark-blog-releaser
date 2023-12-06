@@ -1,11 +1,32 @@
 package com.ahdark.code.services.impl
 
 import com.ahdark.code.services.SignatureService
+import com.ahdark.code.services.servicesModule
+import com.ahdark.code.utils.utilsModule
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.test.KoinTest
+import org.koin.test.inject
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 
-class SignatureServiceImplTest {
-    val signatureService: SignatureService = SignatureServiceImpl("It's a Secret to Everybody")
+class SignatureServiceImplTest : KoinTest {
+    @BeforeTest
+    fun before() {
+        startKoin {
+            modules(utilsModule)
+            modules(servicesModule)
+        }
+    }
+
+    @AfterTest
+    fun tearDown() {
+        stopKoin()
+    }
+
+    private val signatureService by inject<SignatureService>()
 
     @Test
     fun verifySignature() {

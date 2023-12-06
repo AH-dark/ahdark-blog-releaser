@@ -1,5 +1,7 @@
 package com.ahdark.code.services
 
-interface EventHandleService {
+import org.koin.core.component.KoinComponent
+
+interface EventHandleService : KoinComponent {
     fun handleEvent(payload: ByteArray)
 }

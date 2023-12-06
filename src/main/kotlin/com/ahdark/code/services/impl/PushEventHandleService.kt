@@ -5,6 +5,7 @@ import com.ahdark.code.services.EventHandleService
 import com.ahdark.code.services.TelegramNotificationService
 import kotlinx.serialization.json.Json
 import org.intellij.lang.annotations.Language
+import org.koin.core.component.inject
 import java.time.OffsetDateTime
 import kotlin.math.min
 
@@ -14,7 +15,7 @@ import kotlin.math.min
  * @property telegramNotificationService: the Telegram notification service
  */
 class PushEventHandleService : EventHandleService {
-    private val telegramNotificationService: TelegramNotificationService = TelegramNotificationServiceImpl()
+    private val telegramNotificationService: TelegramNotificationService by inject()
 
     /**
      * Handle the push event

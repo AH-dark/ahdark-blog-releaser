@@ -5,14 +5,13 @@ import java.util.*
 
 class ConfigUtils {
     private val props = Properties()
-    private val inputStream: InputStream? =
-        Thread.currentThread().contextClassLoader.getResourceAsStream("config.properties")
+    private val inputStream: InputStream? = javaClass.classLoader.getResourceAsStream("config.properties")
 
     init {
         inputStream.use { props.load(it) }
     }
 
-    fun getProperty(key: String): String {
+    fun getProperty(key: String): String? {
         return props.getProperty(key)
     }
 }
