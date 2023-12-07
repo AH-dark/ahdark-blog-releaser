@@ -51,6 +51,7 @@ jobs:
 
       - name: JReleaser release output
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: jreleaser-release
           path: |
