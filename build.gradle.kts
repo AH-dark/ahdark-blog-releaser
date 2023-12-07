@@ -51,10 +51,17 @@ jreleaser {
 
     release {
         github {
-            repoOwner = "ahdark"
+            enabled = true
+            repoOwner = "AH-dark"
             overwrite = true
+            draft = true
             issues {
                 enabled = true
+            }
+
+            update {
+                enabled = true
+                section("ASSETS")
             }
 
             changelog {
@@ -80,7 +87,7 @@ jreleaser {
 
     distributions {
         create("ahdark-blog-releaser") {
-            active = Active.RELEASE
+            active = Active.ALWAYS
             distributionType = DistributionType.JAVA_BINARY
 
             platform {
