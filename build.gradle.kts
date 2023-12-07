@@ -66,7 +66,7 @@ jreleaser {
     }
 
     distributions {
-        create("app") {
+        create("ahdark-blog-releaser") {
             active = Active.RELEASE
             distributionType = DistributionType.JAVA_BINARY
 
@@ -79,14 +79,14 @@ jreleaser {
 
             artifacts {
                 artifact {
-                    path = File("build/{{distributionName}}-{{projectVersion}}.zip")
+                    path = File("build/distributions/{{distributionName}}-v{{projectVersion}}.zip")
                 }
                 artifact {
-                    path = File("build/{{distributionName}}-{{projectVersion}}-mac.zip")
+                    path = File("build/distributions/{{distributionName}}-v{{projectVersion}}-mac.zip")
                     platform = "osx"
                 }
                 artifact {
-                    path = File("build/{{distributionName}}-{{projectVersion}}-windows.zip")
+                    path = File("build/distributions/{{distributionName}}-v{{projectVersion}}-windows.zip")
                     platform = "windows"
                 }
             }
