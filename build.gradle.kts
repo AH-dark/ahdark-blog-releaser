@@ -120,11 +120,10 @@ jreleaser {
                 platform("linux/arm64")
             }
 
-            imageNames = listOf("ah-dark/{{distributionName}}:{{tagName}}")
-
             registries {
                 create("ghcr") {
                     server = "ghcr.io"
+                    imageNames = listOf("ah-dark/{{distributionName}}:{{tagName}}")
                 }
             }
         }
