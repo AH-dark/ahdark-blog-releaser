@@ -94,14 +94,6 @@ jreleaser {
                 artifact {
                     path = File("build/distributions/{{distributionName}}-{{projectVersion}}.zip")
                 }
-                artifact {
-                    path = File("build/distributions/{{distributionName}}-{{projectVersion}}-mac.zip")
-                    platform = "osx"
-                }
-                artifact {
-                    path = File("build/distributions/{{distributionName}}-{{projectVersion}}-windows.zip")
-                    platform = "windows"
-                }
             }
         }
     }
