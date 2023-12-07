@@ -120,9 +120,16 @@ jreleaser {
                 platform("linux/arm64")
             }
 
+            repository {
+                name = "ahdark-blog-releaser"
+            }
+
+            imageName("ah-dark/{{distributionName}}:{{tagName}}")
+
             registries {
                 create("ghcr") {
                     server = "ghcr.io"
+                    imageName("ah-dark/{{distributionName}}:{{tagName}}")
                 }
             }
         }
