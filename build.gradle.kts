@@ -43,7 +43,7 @@ jreleaser {
         docsUrl = "https://github.com/AH-dark/ahdark-blog-releaser/wiki"
 
         java {
-            version = "21"
+            version = "17"
             artifactId = "ahdark-blog-releaser"
             mainClass = "com.ahdark.code.ApplicationKt"
         }
@@ -52,7 +52,7 @@ jreleaser {
     release {
         github {
             enabled = true
-            repoOwner = "ah-dark"
+            repoOwner = "AH-dark"
             overwrite = true
             draft = true
             issues {
@@ -102,6 +102,10 @@ jreleaser {
                     path = File("build/distributions/{{distributionName}}-{{projectVersion}}.zip")
                 }
             }
+
+            upload {
+                enabled = true
+            }
         }
     }
 
@@ -115,6 +119,8 @@ jreleaser {
                 platform("linux/amd64")
                 platform("linux/arm64")
             }
+
+            imageNames = listOf("ah-dark/{{distributionName}}:{{tagName}}")
 
             registries {
                 create("ghcr") {
