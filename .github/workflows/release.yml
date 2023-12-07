@@ -34,3 +34,7 @@ jobs:
         run: |
           ./gradlew jreleaserConfig
           ./gradlew jreleaserFullRelease
+        env:
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JRELEASER_DOCKER_GHCR_USERNAME: ${{ github.actor }}
+          JRELEASER_DOCKER_GHCR_PASSWORD: ${{ secrets.GHCR_TOKEN }}
