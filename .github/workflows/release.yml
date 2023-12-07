@@ -12,6 +12,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+      packages: write
+      issues: write
+      id-token: write
+
     env:
       JRELEASER_GITHUB_TOKEN: ${{ github.token }}
       JRELEASER_DOCKER_GHCR_USERNAME: ${{ github.actor }}
