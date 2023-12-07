@@ -1,3 +1,7 @@
+import org.jreleaser.model.Active
+import org.jreleaser.model.Distribution.DistributionType
+import org.jreleaser.model.Stereotype
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
@@ -10,16 +14,103 @@ plugins {
     kotlin("jvm") version "1.9.21"
     id("io.ktor.plugin") version "2.3.6"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.21"
+    id("org.jreleaser") version "1.9.0"
 }
 
 group = "com.ahdark.code"
-version = "0.0.1"
+version = "1.0.0"
 
 application {
     mainClass.set("com.ahdark.code.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
+
+jreleaser {
+    project {
+        name = "ahdark-blog-releaser"
+        stereotype = Stereotype.WEB
+        description = "AHdark Blog Release Notification Service"
+        longDescription = """
+        This project is a Kotlin-based HTTP server designed to handle GitHub Webhooks. It automatically forwards push notifications from the main branch of a GitHub repository to a specified Telegram chat, facilitating real-time updates.
+        """.trimIndent()
+        license = "MIT"
+        authors = listOf("AHdark")
+        maintainers = listOf("AH-dark")
+        inceptionYear = "2023"
+        website = "https://github.com/aH-dark/ahdark-blog-releaser"
+        docsUrl = "https://github.com/AH-dark/ahdark-blog-releaser/wiki"
+
+        java {
+            version = "21"
+        }
+    }
+
+    release {
+        github {
+            repoOwner = "ahdark"
+            overwrite = true
+        }
+    }
+
+    checksum {
+        name = "{{projectName}}-{{projectVersion}}_checksums.txt"
+
+        algorithm("MD5")
+        algorithm("SHA-256")
+
+        individual = true
+        artifacts = true
+        files = true
+    }
+
+    distributions {
+        create("app") {
+            active = Active.RELEASE
+            distributionType = DistributionType.JAVA_BINARY
+
+            platform {
+                replacements.put("osx-x86_64", "mac")
+                replacements.put("aarch_64", "aarch64")
+                replacements.put("x86_64", "amd64")
+                replacements.put("linux_musl", "alpine")
+            }
+
+            artifacts {
+                artifact {
+                    path = File("build/{{distributionName}}-{{projectVersion}}.zip")
+                }
+                artifact {
+                    path = File("build/{{distributionName}}-{{projectVersion}}-mac.zip")
+                    platform = "osx"
+                }
+                artifact {
+                    path = File("build/{{distributionName}}-{{projectVersion}}-windows.zip")
+                    platform = "windows"
+                }
+            }
+        }
+    }
+
+    packagers {
+        docker {
+            active = Active.RELEASE
+
+            buildx {
+                enabled = true
+
+                platform("linux/amd64")
+                platform("linux/arm64")
+            }
+
+            registries {
+                create("ghcr") {
+                    server = "https://ghcr.io"
+                }
+            }
+        }
+    }
 }
 
 repositories {
