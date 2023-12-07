@@ -52,7 +52,7 @@ jreleaser {
     release {
         github {
             enabled = true
-            repoOwner = "AH-dark"
+            repoOwner = "ah-dark"
             overwrite = true
             draft = true
             issues {
@@ -123,7 +123,6 @@ jreleaser {
             registries {
                 create("ghcr") {
                     server = "ghcr.io"
-                    imageNames = listOf("ah-dark/{{distributionName}}:{{tagName}}")
                 }
             }
         }
