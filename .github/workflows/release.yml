@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       # Configure build steps as you'd normally do
 
@@ -30,8 +32,6 @@ jobs:
       # Create a release
 
       - name: Run JReleaser
-        uses: jreleaser/release-action@v2
-        env:
-          JRELEASER_GITHUB_TOKEN: ${{ github.token }}
-          JRELEASER_DOCKER_GHCR_USERNAME: ${{ github.actor }}
-          JRELEASER_DOCKER_GHCR_PASSWORD: ${{ github.token }}
+        run: |
+          ./gradlew jreleaserConfig
+          ./gradlew jreleaserFullRelease
