@@ -52,7 +52,7 @@ jreleaser {
     release {
         github {
             enabled = true
-            repoOwner = "AH-dark"
+            repoOwner = "ah-dark"
             overwrite = true
             draft = true
             issues {
