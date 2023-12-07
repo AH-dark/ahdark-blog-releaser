@@ -47,4 +47,13 @@ jobs:
 
       - name: Run JReleaser Release
         run: |
-          ./gradlew jreleaserFullRelease --info
+          ./gradlew jreleaserFullRelease
+
+      - name: JReleaser release output
+        uses: actions/upload-artifact@v3
+        with:
+          name: jreleaser-release
+          path: |
+            build/jreleaser/trace.log
+            build/jreleaser/output.properties
+          retention-days: 1
