@@ -118,7 +118,7 @@ jreleaser {
 
             registries {
                 create("ghcr") {
-                    server = "https://ghcr.io"
+                    server = "fghcr.io"
                 }
             }
         }
