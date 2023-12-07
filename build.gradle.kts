@@ -44,6 +44,8 @@ jreleaser {
 
         java {
             version = "21"
+            artifactId = "ahdark-blog-releaser"
+            mainClass = "com.ahdark.code.ApplicationKt"
         }
     }
 
@@ -51,6 +53,17 @@ jreleaser {
         github {
             repoOwner = "ahdark"
             overwrite = true
+            issues {
+                enabled = true
+            }
+
+            changelog {
+                formatted = Active.ALWAYS
+                preset = "conventional-commits"
+                contributors {
+                    format = "- {{contributorName}}{{#contributorUsernameAsLink}} ({{.}}){{/contributorUsernameAsLink}}"
+                }
+            }
         }
     }
 
@@ -79,14 +92,14 @@ jreleaser {
 
             artifacts {
                 artifact {
-                    path = File("build/distributions/{{distributionName}}-v{{projectVersion}}.zip")
+                    path = File("build/distributions/{{distributionName}}-{{projectVersion}}.zip")
                 }
                 artifact {
-                    path = File("build/distributions/{{distributionName}}-v{{projectVersion}}-mac.zip")
+                    path = File("build/distributions/{{distributionName}}-{{projectVersion}}-mac.zip")
                     platform = "osx"
                 }
                 artifact {
-                    path = File("build/distributions/{{distributionName}}-v{{projectVersion}}-windows.zip")
+                    path = File("build/distributions/{{distributionName}}-{{projectVersion}}-windows.zip")
                     platform = "windows"
                 }
             }
