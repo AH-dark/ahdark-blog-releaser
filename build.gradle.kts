@@ -28,6 +28,12 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
+ktor {
+    fatJar {
+        archiveFileName = "ahdark-blog-releaser-all.jar"
+    }
+}
+
 jreleaser {
     project {
         name = "ahdark-blog-releaser"

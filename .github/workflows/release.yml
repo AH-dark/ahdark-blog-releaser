@@ -45,6 +45,10 @@ jobs:
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Run Build Fat Jar
+        run: |
+          ./gradlew buildFatJar
+
       - name: Run JReleaser Release
         run: |
           ./gradlew jreleaserFullRelease
