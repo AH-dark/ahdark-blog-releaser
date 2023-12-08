@@ -19,7 +19,7 @@ plugins {
 }
 
 group = "com.ahdark.code"
-version = "1.0.3"
+version = "1.0.4"
 
 application {
     mainClass.set("com.ahdark.code.ApplicationKt")

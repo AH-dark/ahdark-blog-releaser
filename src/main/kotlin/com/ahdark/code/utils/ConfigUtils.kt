@@ -5,7 +5,7 @@ import java.io.InputStream
 import java.util.*
 
 class ConfigUtils {
-    private val configFileName = "config.properties"
+    private val configFileName = System.getenv("CONFIG_PATH") ?: "config.properties"
 
     private val props = Properties()
     private val resourceStream: InputStream? = javaClass.classLoader.getResourceAsStream(configFileName)
