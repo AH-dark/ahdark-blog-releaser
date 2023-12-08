@@ -18,7 +18,7 @@ plugins {
 }
 
 group = "com.ahdark.code"
-version = "1.0.0"
+version = "1.0.1"
 
 application {
     mainClass.set("com.ahdark.code.ApplicationKt")
@@ -88,7 +88,7 @@ jreleaser {
     distributions {
         create("ahdark-blog-releaser") {
             active = Active.ALWAYS
-            distributionType = DistributionType.JAVA_BINARY
+            distributionType = DistributionType.SINGLE_JAR
 
             platform {
                 replacements.put("osx-x86_64", "mac")
