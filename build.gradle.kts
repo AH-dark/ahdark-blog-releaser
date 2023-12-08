@@ -100,7 +100,7 @@ jreleaser {
 
             artifacts {
                 artifact {
-                    path = File("build/libs/{{distributionName}}-{{projectVersion}}.jar")
+                    path = File("build/libs/{{distributionName}}-all.jar")
                 }
             }
 
