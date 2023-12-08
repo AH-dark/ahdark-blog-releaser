@@ -46,7 +46,7 @@ jreleaser {
         authors = listOf("AHdark")
         maintainers = listOf("AH-dark")
         inceptionYear = "2023"
-        website = "https://github.com/aH-dark/ahdark-blog-releaser"
+        website = "https://github.com/AH-dark/ahdark-blog-releaser"
         docsUrl = "https://github.com/AH-dark/ahdark-blog-releaser/wiki"
 
         java {
