@@ -1,12 +1,12 @@
-# Generated with JReleaser 1.9.0 at 2023-12-08T17:21:38.144159535Z
+# Generated with JReleaser 1.9.0 at 2023-12-08T17:32:32.198979691Z
 FROM azul/zulu-openjdk-alpine:17-jre
 
 LABEL "org.opencontainers.image.title"="ahdark-blog-releaser"
 LABEL "org.opencontainers.image.description"="AHdark Blog Release Notification Service"
-LABEL "org.opencontainers.image.url"="https://github.com/aH-dark/ahdark-blog-releaser"
+LABEL "org.opencontainers.image.url"="https://github.com/AH-dark/ahdark-blog-releaser"
 LABEL "org.opencontainers.image.licenses"="MIT"
 LABEL "org.opencontainers.image.version"="1.0.2"
-LABEL "org.opencontainers.image.revision"="780e1748ef16c2bf09a8025ccace4b6f414f623d"
+LABEL "org.opencontainers.image.revision"="7c20f5b06492976da8bb9662bf1ed5c3ae54d86b"
 
 
 COPY assembly/ /

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Generated with JReleaser 1.9.0 at 2023-12-08T17:21:38.144159535Z
+# Generated with JReleaser 1.9.0 at 2023-12-08T17:32:32.198979691Z
 
 $JAVA_HOME/bin/java $JAVA_OPTS \
     -jar /ahdark-blog-releaser-1.0.2/lib/ahdark-blog-releaser-all.jar \
