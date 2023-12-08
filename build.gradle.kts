@@ -12,6 +12,7 @@ val telegram_bot_version: String by project
 
 plugins {
     kotlin("jvm") version "1.9.21"
+    java
     id("io.ktor.plugin") version "2.3.6"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.21"
     id("org.jreleaser") version "1.9.0"
@@ -88,7 +89,7 @@ jreleaser {
     distributions {
         create("ahdark-blog-releaser") {
             active = Active.ALWAYS
-            distributionType = DistributionType.SINGLE_JAR
+            distributionType = DistributionType.JAVA_BINARY
 
             platform {
                 replacements.put("osx-x86_64", "mac")
@@ -99,7 +100,7 @@ jreleaser {
 
             artifacts {
                 artifact {
-                    path = File("build/distributions/{{distributionName}}-{{projectVersion}}.zip")
+                    path = File("build/libs/{{distributionName}}-{{projectVersion}}.jar")
                 }
             }
 
