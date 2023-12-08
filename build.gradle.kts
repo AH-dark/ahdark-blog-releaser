@@ -19,7 +19,7 @@ plugins {
 }
 
 group = "com.ahdark.code"
-version = "1.0.1"
+version = "1.0.2"
 
 application {
     mainClass.set("com.ahdark.code.ApplicationKt")
@@ -78,7 +78,6 @@ jreleaser {
     checksum {
         name = "{{projectName}}-{{projectVersion}}_checksums.txt"
 
-        algorithm("MD5")
         algorithm("SHA-256")
 
         individual = true
@@ -86,17 +85,17 @@ jreleaser {
         files = true
     }
 
+    platform {
+        replacements.put("osx-x86_64", "mac")
+        replacements.put("aarch_64", "aarch64")
+        replacements.put("x86_64", "amd64")
+        replacements.put("linux_musl", "alpine")
+    }
+
     distributions {
         create("ahdark-blog-releaser") {
             active = Active.ALWAYS
-            distributionType = DistributionType.JAVA_BINARY
-
-            platform {
-                replacements.put("osx-x86_64", "mac")
-                replacements.put("aarch_64", "aarch64")
-                replacements.put("x86_64", "amd64")
-                replacements.put("linux_musl", "alpine")
-            }
+            distributionType = DistributionType.SINGLE_JAR
 
             artifacts {
                 artifact {
