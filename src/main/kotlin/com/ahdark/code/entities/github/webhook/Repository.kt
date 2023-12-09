@@ -1,5 +1,6 @@
 package com.ahdark.code.entities.github.webhook
 
+import com.ahdark.code.serializer.TimestampSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -134,12 +135,15 @@ data class Repository(
     @SerialName("deployments_url")
     val deploymentsURL: String,
 
+    @Serializable(with = TimestampSerializer::class)
     @SerialName("created_at")
     val createdAt: Long,
 
+    @Serializable(with = TimestampSerializer::class)
     @SerialName("updated_at")
-    val updatedAt: String,
+    val updatedAt: Long,
 
+    @Serializable(with = TimestampSerializer::class)
     @SerialName("pushed_at")
     val pushedAt: Long,
 
