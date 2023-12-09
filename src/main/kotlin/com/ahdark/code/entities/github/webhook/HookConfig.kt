@@ -7,8 +7,10 @@ import kotlinx.serialization.Serializable
 data class HookConfig(
     @SerialName("content_type")
     val contentType: String,
+
     @SerialName("insecure_ssl")
     val insecureSsl: Int,
+    
     val secret: String,
     val url: String
 )

@@ -2,7 +2,6 @@ package com.ahdark.code.entities.github.webhook
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonElement
 
 
 @Serializable
@@ -220,13 +219,10 @@ data class Repository(
     @SerialName("default_branch")
     val defaultBranch: String,
 
-    val stargazers: Long,
+    val stargazers: Long? = null,
 
     @SerialName("master_branch")
-    val masterBranch: String,
+    val masterBranch: String? = null,
 
     val organization: String? = null,
-
-    @SerialName("custom_properties")
-    val customProperties: JsonElement? = null
 )
