@@ -17,6 +17,7 @@ jobs:
       packages: write
       issues: write
       id-token: write
+      pull-requests: write
 
     env:
       JRELEASER_GITHUB_TOKEN: ${{ github.token }}
