@@ -6,7 +6,6 @@ import com.ahdark.code.services.TelegramNotificationService
 import kotlinx.serialization.json.Json
 import org.intellij.lang.annotations.Language
 import org.koin.core.component.inject
-import java.time.OffsetDateTime
 import kotlin.math.min
 
 /**
@@ -40,7 +39,7 @@ class PushEventHandleService : EventHandleService {
         ${
             event.commits
                 .subList(0, min(10, event.commits.size))
-                .sortedBy { OffsetDateTime.parse(it.timestamp) }
+                .sortedBy { it.timestamp }
                 .joinToString("\n        ") {
                     "<b>${it.id.substring(0, 7)}</b> ${it.message.split("\n").first()} by ${it.author.name}"
                 }
