@@ -1,6 +1,6 @@
 #!/bin/sh
-# Generated with JReleaser 1.9.0 at 2023-12-09T06:06:16.983091089Z
+# Generated with JReleaser 1.9.0 at 2023-12-09T06:53:44.917265531Z
 
 $JAVA_HOME/bin/java $JAVA_OPTS \
-    -jar /ahdark-blog-releaser-1.0.5/lib/ahdark-blog-releaser-all.jar \
+    -jar /ahdark-blog-releaser-1.0.6/lib/ahdark-blog-releaser-all.jar \
     "$@"
