@@ -13,7 +13,7 @@ val telegram_bot_version: String by project
 plugins {
     kotlin("jvm") version "1.9.21"
     java
-    id("io.ktor.plugin") version "2.3.6"
+    id("io.ktor.plugin") version "2.3.7"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.21"
     id("org.jreleaser") version "1.9.0"
 }
