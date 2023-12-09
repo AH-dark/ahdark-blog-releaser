@@ -1,0 +1,9 @@
+services:
+  ahdark-blog-releaser:
+    image: ghcr.io/ah-dark/ahdark-blog-releaser
+    ports:
+      - 8080:8080
+    volumes:
+      - ./config.example.properties:/config/config.properties
+    environment:
+      CONFIG_PATH: /config/config.properties
